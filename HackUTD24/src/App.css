@@ -14,3 +14,7 @@ SignInButton{
   font-size: 32px;
   cursor: pointer;
 }
+.logo {
+  width: 1920px;
+  height: 150px;
+}
