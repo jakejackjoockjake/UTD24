@@ -5,7 +5,7 @@ import logo from './assets/SWOT.jpg';
 
 export default function App() {
   return (
-    <><img src={logo} alt="Logo" className='logo'style="width: 200vh; height: 80%;" /><header>
+    <><img src={logo} alt="Logo" className='logo'style="width: 300px; height: 300px;" /><header>
       <SignedOut>
         <SignInButton>Sign in Here!</SignInButton>
       </SignedOut>
