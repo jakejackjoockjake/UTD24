@@ -1,0 +1,210 @@
+import React, { useState } from 'react';
+import logo from './swot.cc.png';  // Make sure the logo is correctly referenced
+import './App.css';
+
+function App() {
+  const [userType, setUserType] = useState('');
+  const [tuition, setTuition] = useState('');
+  const [roomAndBoard, setRoomAndBoard] = useState('');
+  const [booksSupplies, setBooksSupplies] = useState('');
+  const [loans, setLoans] = useState('');
+  const [grants, setGrants] = useState('');
+  const [payType, setPayType] = useState('');
+  const [hourlyWage, setHourlyWage] = useState('');
+  const [hoursWorked, setHoursWorked] = useState('');
+  const [salary, setSalary] = useState('');
+
+  // Personal use state variables
+  const [monthlyIncome, setMonthlyIncome] = useState('');
+  const [monthlyExpenses, setMonthlyExpenses] = useState('');
+  const [monthlySavings, setMonthlySavings] = useState('');
+
+  // Handle user type selection
+  const handleChange = (event) => {
+    setUserType(event.target.value);
+  };
+
+  // Function to handle pay type selection
+  const handlePayTypeChange = (event) => {
+    setPayType(event.target.value);
+  };
+
+  // Reset all form inputs
+  const resetForm = () => {
+    setUserType('');
+    setTuition('');
+    setRoomAndBoard('');
+    setBooksSupplies('');
+    setLoans('');
+    setGrants('');
+    setPayType('');
+    setHourlyWage('');
+    setHoursWorked('');
+    setSalary('');
+    setMonthlyIncome('');
+    setMonthlyExpenses('');
+    setMonthlySavings('');
+  };
+
+  // Function to generate feedback for business owner
+  const generateFeedback = () => {
+    if (userType === 'business-owner') {
+      const totalExpenses =
+        parseFloat(monthlyExpenses) + parseFloat(monthlySavings);
+      const profit = (parseFloat(monthlyIncome) - totalExpenses) / parseFloat(monthlyIncome);
+      if (profit > 0.4) {
+        return "You're doing great! Keep up the good work!";
+      } else if (profit < 0.1) {
+        return "Your business needs significant help. Here's a plan to improve your business.";
+      } else {
+        return "Your business isn't doing terrible, but there's room for improvement. Here's a course of action.";
+      }
+    }
+    return null;
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p className="bold-text">The right way to grow!</p>
+
+        <div className="dropdown-container">
+          <label htmlFor="user-type">Select your role:</label>
+          <select id="user-type" value={userType} onChange={handleChange} className="dropdown-menu">
+            <option value="">Select...</option>
+            <option value="student">Student</option>
+            <option value="business-owner">Business Owner</option>
+            <option value="personal-use">Personal Use</option>
+          </select>
+        </div>
+
+        {userType === 'student' && (
+          <div className="student-inputs">
+            <div className="input-field">
+              <label htmlFor="tuition">How much do you spend on tuition?</label>
+              <input
+                type="number"
+                id="tuition"
+                value={tuition}
+                onChange={(e) => setTuition(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="room-and-board">How much for room and board?</label>
+              <input
+                type="number"
+                id="room-and-board"
+                value={roomAndBoard}
+                onChange={(e) => setRoomAndBoard(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="books-supplies">How much for books and supplies?</label>
+              <input
+                type="number"
+                id="books-supplies"
+                value={booksSupplies}
+                onChange={(e) => setBooksSupplies(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="loans">How much did you receive in loans?</label>
+              <input
+                type="number"
+                id="loans"
+                value={loans}
+                onChange={(e) => setLoans(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="grants">How much did you receive in grants?</label>
+              <input
+                type="number"
+                id="grants"
+                value={grants}
+                onChange={(e) => setGrants(e.target.value)}
+              />
+            </div>
+          </div>
+        )}
+
+        {userType === 'business-owner' && (
+          <div className="business-inputs">
+            <div className="input-field">
+              <label htmlFor="monthly-income">How much is your monthly income?</label>
+              <input
+                type="number"
+                id="monthly-income"
+                value={monthlyIncome}
+                onChange={(e) => setMonthlyIncome(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="monthly-expenses">How much are your monthly expenses (wages, rent, etc.)?</label>
+              <input
+                type="number"
+                id="monthly-expenses"
+                value={monthlyExpenses}
+                onChange={(e) => setMonthlyExpenses(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="monthly-savings">How much do you save per month?</label>
+              <input
+                type="number"
+                id="monthly-savings"
+                value={monthlySavings}
+                onChange={(e) => setMonthlySavings(e.target.value)}
+              />
+            </div>
+            <p>{generateFeedback()}</p>
+          </div>
+        )}
+
+        {userType === 'personal-use' && (
+          <div className="personal-use-inputs">
+            <div className="input-field">
+              <label htmlFor="monthly-income">What is your monthly income?</label>
+              <input
+                type="number"
+                id="monthly-income"
+                value={monthlyIncome}
+                onChange={(e) => setMonthlyIncome(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="monthly-expenses">What are your monthly expenses?</label>
+              <input
+                type="number"
+                id="monthly-expenses"
+                value={monthlyExpenses}
+                onChange={(e) => setMonthlyExpenses(e.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <label htmlFor="monthly-savings">How much do you save per month?</label>
+              <input
+                type="number"
+                id="monthly-savings"
+                value={monthlySavings}
+                onChange={(e) => setMonthlySavings(e.target.value)}
+              />
+            </div>
+            <p>{monthlyIncome && monthlyExpenses && monthlySavings ? 
+                `Your monthly balance is: ${(monthlyIncome - (parseFloat(monthlyExpenses) + parseFloat(monthlySavings))).toFixed(2)}` : 
+                'Please input a valid value'}</p>
+          </div>
+        )}
+
+        <div style={{ marginTop: '30px' }}>
+          <button onClick={resetForm} className="reset-button">
+            Reset All Inputs
+          </button>
+        </div>
+      </header>
+    </div>
+  );
+}
+
+export default App;
